@@ -1,0 +1,18 @@
+name: Clean gh-pages
+on:
+  workflow_dispatch:
+jobs:
+  clean:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: gh-pages
+      - run: |
+          rm -rf *
+          echo "Clean branch" > index.html
+          git add .
+          git config --global user.name "GitHub"
+          git config --global user.email "noreply@github.com"
+          git commit -m "Clean branch"
+          git push origin gh-pages --force
